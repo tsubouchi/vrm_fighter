@@ -12,3 +12,6 @@ COPY assets /usr/share/nginx/html/assets
 
 # nginx設定ファイルをコピー
 COPY nginx.conf /etc/nginx/conf.d/default.conf
+
+# Nginxをフォアグラウンドで実行
+CMD ["nginx", "-g", "daemon off;"]
