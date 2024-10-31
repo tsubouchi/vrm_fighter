@@ -1,27 +1,32 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>VRM Fighter</title>
-  <link rel="stylesheet" href="style.css">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+    <title>VRM Fighter</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <div id="scene-container"></div>
-
-  <!-- HUD -->
-  <div id="hud">
-    <div class="hp-container">
-      <div class="hp-bar" id="player1-hp"></div>
-      <span class="hp-text">HP: 100</span>
+    <div id="background-container">
+        <div id="background"></div>
     </div>
-    <div class="hp-container">
-      <div class="hp-bar" id="player2-hp"></div>
-      <span class="hp-text">HP: 100</span>
+    <div id="scene-container"></div>
+    <div id="controls">
+        <label for="model-select">Select Model:</label>
+        <select id="model-select">
+            <option value="1">Model 1</option>
+            <option value="2">Model 2</option>
+            <option value="3">Model 3</option>
+        </select>
+        <label for="animation-select">Select Animation:</label>
+        <select id="animation-select">
+            <option value="1">Animation 1</option>
+            <option value="2">Animation 2</option>
+            <option value="3">Animation 3</option>
+            <option value="fight">Battle Animation</option>
+        </select>
+        <button id="apply-button">Apply</button>
     </div>
-  </div>
-
-  <!-- バンドルされたJSファイルを読み込み -->
-  <script src="/dist/bundle.js"></script>
+    <script src="bundle.js"></script>
 </body>
 </html>
