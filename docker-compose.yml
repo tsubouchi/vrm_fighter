@@ -1,0 +1,48 @@
+services:
+  backend:
+    build: ./backend
+    container_name: vrm_fighter_backend
+    volumes:
+      - ./backend/uploads:/app/uploads
+    ports:
+      - "8031:8000"
+    environment:
+      - PYTHONUNBUFFERED=1
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8000/"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  frontend:
+    build: ./frontend
+    container_name: vrm_fighter_frontend
+    ports:
+      - "3000:80"
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost/"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    depends_on:
+      backend:
+        condition: service_healthy
+
+  notify:
+    image: alpine
+    container_name: vrm_fighter_notify
+    depends_on:
+      frontend:
+        condition: service_healthy
+    entrypoint: /bin/sh
+    command:
+      - -c
+      - |
+        apk update && \
+        apk add --no-cache curl && \
+        until curl -s http://frontend:80 > /dev/null; do \
+          echo "Waiting for frontend to be ready..."; \
+          sleep 2; \
+        done; \
+        echo "Frontend is available at http://localhost:3000" && \
+        echo "Access the frontend at: http://localhost:3000"
